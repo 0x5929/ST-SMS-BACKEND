@@ -16,6 +16,8 @@ router.register('students', StudentView, basename='students')
 
 urlpatterns = [
     # usage: http://127.0.0.1:8000/api/sms/google_sheet_datadump/?ssid=<spreadsheet id>&sid=<sheet id>&school_name=<school name value, ie: STI>
+    # NOTE: this must be done with an empty database, if not levels of references won't be build properly
+    # If needed to be done, do it locally, delete local DB, migraete and re-create superuser, load initial-data, then hit this endpoint, then reload the data returned from this endpoint
     path('google_sheet_datadump/', GoogleSheetDataDumpView.as_view()),
 
     # usage: http://127.0.0.1:8000/api/sms/student_statistics/
