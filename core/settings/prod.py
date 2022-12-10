@@ -1,8 +1,8 @@
 
 from .base import *
 
-# base settings overrides for PROD environment
 
+# base settings overrides for PROD environment
 DEBUG = False
 
 # Static dir where basic API and admin files are served
@@ -10,15 +10,13 @@ DEBUG = False
 # this will create the static directory in project dir (BASE_DIR)
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
-# email verification settings
-LOGIN_URL = 'https://api.st-inst.com/auth/login' # needs to be changed
+LOGIN_URL = env('LOGIN_URL') 
 
+ALLOWED_HOSTS = ALLOWED_HOSTS + [ env('SERVER_HOST'), ]
 
-# cors settings, ie for react apps
-ALLOWED_HOSTS = ALLOWED_HOSTS + [ 'api.st-inst.com' ]
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000', # needs to be changed 
-    'http://127.0.0.1:3000', # needs to be changed
+CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS + [
+    env('CORS_ALLOWED_HOST_1'), 
+    env('CORS_ALLOWED_HOST_2'), 
 ]
 
 
