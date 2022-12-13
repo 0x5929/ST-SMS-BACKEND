@@ -19,6 +19,7 @@ class GoogleSheet:
     def master_sheet_save(cls, data):
         # also takes care of taking out school_name column,
         # it wont be necessary since every school should have separate and their own spreadsheet to manage
+        print('SERVER LOG ############ hellllo world')
         school = data.pop('school_name')
 
         # connect_google_api
@@ -92,6 +93,8 @@ class GoogleSheet:
                 refresh=GoogleSheetDataOps.refresh)
 
         except Exception as e:
+
+            print('SERVER/ERROR LOG ############ error inside init_google_sheet: e', e)
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
