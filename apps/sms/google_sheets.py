@@ -24,12 +24,18 @@ class GoogleSheet:
         # connect_google_api
         gs_api = cls.init_google_sheet(school)
 
+        print('SERVER LOG ############ gs_api: ', gs_api)
+
         insert_ready_data = DataHandler.finalize_data(data)
+
+        print('SERVER LOG ############ insert_ready_data: ', insert_ready_data)
 
         # MATCH FIRST
         # lookup by ID to determine if this is create or update
         update_row_num = gs_api.match(gs_api.worksheets, data.get(
             'student_id'))
+
+        print('SERVER LOG ############ update_row_num: ', update_row_num)
 
         if update_row_num:
             gs_api.update(gs_api.spreadsheet,
@@ -207,7 +213,7 @@ class ExportHandler:
             # finalize each record according to fixture
             final_data = self.finalize_each_record(rot_uuid)
 
-            # append to data dump 
+            # append to data dump
             self.final_dump.append(final_data)
 
             # reinitialize each_data dict, which is used in rekey
