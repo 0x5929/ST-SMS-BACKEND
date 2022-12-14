@@ -23,24 +23,17 @@ class GoogleSheet:
     def master_sheet_save(cls, data):
         # also takes care of taking out school_name column,
         # it wont be necessary since every school should have separate and their own spreadsheet to manage
-        print('SERVER LOG ############ hellllo world')
         school = data.pop('school_name')
 
         # connect_google_api
         gs_api = cls.init_google_sheet(school)
 
-        print('SERVER LOG ############ gs_api: ', gs_api)
-
         insert_ready_data = DataHandler.finalize_data(data)
-
-        print('SERVER LOG ############ insert_ready_data: ', insert_ready_data)
 
         # MATCH FIRST
         # lookup by ID to determine if this is create or update
         update_row_num = gs_api.match(gs_api.worksheets, data.get(
             'student_id'))
-
-        print('SERVER LOG ############ update_row_num: ', update_row_num)
 
         if update_row_num:
             gs_api.update(gs_api.spreadsheet,
@@ -98,8 +91,6 @@ class GoogleSheet:
                 refresh=GoogleSheetDataOps.refresh)
 
         except Exception as e:
-
-            print('SERVER/ERROR LOG ############ error inside init_google_sheet: e', e)
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:

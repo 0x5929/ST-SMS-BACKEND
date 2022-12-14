@@ -174,11 +174,7 @@ class Student(models.Model):
             if method == 'DEL':
                 GoogleSheet.master_sheet_del(data=data)
             else:
-                print('SERVER LOG ############# data: ', data)
-
                 GoogleSheet.master_sheet_save(data=data)
-
-                print('SERVER LOG ############# we shouldnt print')
                 self.google_sheet_migrated = True
 
             return True
@@ -203,7 +199,6 @@ class Student(models.Model):
 
         # migrate to google (if disable in setting, this will have no side effect)
         if action == 'save':
-            print('SERVER LOG ############# action: ', action)
             return self.migrate_google('POST/PUT/PATCH')
         elif action == 'delete':
             return self.migrate_google('DEL')

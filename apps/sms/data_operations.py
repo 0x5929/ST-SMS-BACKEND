@@ -63,8 +63,6 @@ class GoogleSheetDataOps:
 
         except Exception as e:
 
-            print('SERVER/ERROR LOG ############ Exception: ', e)
-
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
