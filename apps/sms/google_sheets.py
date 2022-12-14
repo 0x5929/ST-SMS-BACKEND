@@ -76,6 +76,9 @@ class GoogleSheet:
 
         try:
 
+            BASE_DIR = getattr(settings, 'BASE_DIR')
+
+            print('BASE_DIR: ', BASE_DIR)
             # # connect to google sheet
             scopes = SHEET_CONSTANTS.get('SCOPES')
             creds = ServiceAccountCredentials.from_json_keyfile_name(
