@@ -1,3 +1,4 @@
+import os
 import re
 import uuid
 import time
@@ -11,6 +12,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 from .utils import DataHandler
 from .data_operations import GoogleSheetDataOps
 from .constants import SHEET_CONSTANTS
+
+
+BASE_DIR = getattr(settings, 'BASE_DIR')
 
 
 class GoogleSheet:
@@ -76,13 +80,11 @@ class GoogleSheet:
 
         try:
 
-            BASE_DIR = getattr(settings, 'BASE_DIR')
-
-            print('BASE_DIR: ', BASE_DIR)
             # # connect to google sheet
             scopes = SHEET_CONSTANTS.get('SCOPES')
+
             creds = ServiceAccountCredentials.from_json_keyfile_name(
-                'st-sms-creds.json', scopes)
+                os.path.join(BASE_DIR, '../st-sms-creds.json'), scopes)
 
             google_sheet_client = gspread.authorize(creds)
 
